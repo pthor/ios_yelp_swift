@@ -17,6 +17,7 @@
 		22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */; };
 		90B718C590BD546DEFEF0D61 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3C5CF4FD317D72ABE2AAC4 /* Pods.framework */; };
 		DAEE26271C6C1D9A0098F4F2 /* BusinessViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEE26261C6C1D9A0098F4F2 /* BusinessViewCell.swift */; };
+		DAEE26291C6D7DAB0098F4F2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = DAEE26281C6D7DAB0098F4F2 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		AA3C5CF4FD317D72ABE2AAC4 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD540129B10DFE60E8C24E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DAEE26261C6C1D9A0098F4F2 /* BusinessViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessViewCell.swift; sourceTree = "<group>"; };
+		DAEE26281C6D7DAB0098F4F2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 		F4A9A6AAA6A538FE245C4A17 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				DAEE26281C6D7DAB0098F4F2 /* README.md */,
 				BBD540129B10DFE60E8C24E2 /* Pods.debug.xcconfig */,
 				97D8B2E3FFD1AF4F4A707E47 /* Pods.release.xcconfig */,
 			);
@@ -330,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAEE26291C6D7DAB0098F4F2 /* README.md in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
 				DAEE26271C6C1D9A0098F4F2 /* BusinessViewCell.swift in Sources */,
