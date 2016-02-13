@@ -162,37 +162,81 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WbW-vL-cwx">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WbW-vL-cwx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" id="btw-rm-Uhl" customClass="SwitchTableViewCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="92" width="320" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="btw-rm-Uhl" id="Oax-wK-fag">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ca4-RK-C47">
-                                                    <rect key="frame" x="257" y="6" width="51" height="31"/>
-                                                </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKg-M9-jQF">
-                                                    <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pNX-Gb-iDp" userLabel="RoundContainerView">
+                                                    <rect key="frame" x="10" y="10" width="300" height="24"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKg-M9-jQF">
+                                                            <rect key="frame" x="8" y="2" width="45" height="20"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ca4-RK-C47">
+                                                            <rect key="frame" x="243" y="-4" width="51" height="31"/>
+                                                        </switch>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="ca4-RK-C47" firstAttribute="centerY" secondItem="pNX-Gb-iDp" secondAttribute="centerY" id="0lU-Cx-KYq"/>
+                                                        <constraint firstItem="fKg-M9-jQF" firstAttribute="leading" secondItem="pNX-Gb-iDp" secondAttribute="leading" constant="8" id="Eau-uA-enm"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ca4-RK-C47" secondAttribute="trailing" constant="8" id="fHg-gr-Z4s"/>
+                                                        <constraint firstItem="fKg-M9-jQF" firstAttribute="centerY" secondItem="pNX-Gb-iDp" secondAttribute="centerY" id="rHf-vD-8e7"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="pNX-Gb-iDp" firstAttribute="top" secondItem="Oax-wK-fag" secondAttribute="topMargin" constant="2" id="7WB-ZT-Aju"/>
+                                                <constraint firstItem="pNX-Gb-iDp" firstAttribute="leading" secondItem="Oax-wK-fag" secondAttribute="leadingMargin" constant="2" id="CzJ-Gp-zlx"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="pNX-Gb-iDp" secondAttribute="bottom" constant="2" id="Ob1-fG-5cq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="pNX-Gb-iDp" secondAttribute="trailing" constant="2" id="g8c-oA-0Fk"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                        <connections>
+                                            <outlet property="SwitchLabel" destination="fKg-M9-jQF" id="L9Q-E3-TKz"/>
+                                            <outlet property="onSwitch" destination="ca4-RK-C47" id="Kiv-MG-dqd"/>
+                                            <outlet property="roundedContainer" destination="pNX-Gb-iDp" id="asf-nf-Ora"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingPickerTableViewCell" id="tgB-Ns-GbK" userLabel="SettingPickerTableViewCell" customClass="SettingPickerTableViewCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="149" width="320" height="57"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tgB-Ns-GbK" id="FkO-kr-iHY">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rtb-ZR-Cmm">
+                                                    <rect key="frame" x="8" y="8" width="304" height="41"/>
+                                                </pickerView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Picker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9p-dd-6eg">
+                                                    <rect key="frame" x="2" y="18" width="48" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="fKg-M9-jQF" firstAttribute="leading" secondItem="Oax-wK-fag" secondAttribute="leading" constant="8" id="4Gy-GL-ogn"/>
-                                                <constraint firstItem="fKg-M9-jQF" firstAttribute="centerY" secondItem="Oax-wK-fag" secondAttribute="centerY" id="LGG-bW-8f8"/>
-                                                <constraint firstItem="ca4-RK-C47" firstAttribute="centerY" secondItem="Oax-wK-fag" secondAttribute="centerY" id="jPh-Gy-GIs"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ca4-RK-C47" secondAttribute="trailing" constant="6" id="nhJ-CM-8HL"/>
+                                                <constraint firstItem="C9p-dd-6eg" firstAttribute="leading" secondItem="FkO-kr-iHY" secondAttribute="leading" constant="8" id="MFU-OM-bX6"/>
+                                                <constraint firstItem="Rtb-ZR-Cmm" firstAttribute="top" secondItem="FkO-kr-iHY" secondAttribute="topMargin" id="P6J-lJ-ktg"/>
+                                                <constraint firstItem="Rtb-ZR-Cmm" firstAttribute="leading" secondItem="FkO-kr-iHY" secondAttribute="leadingMargin" id="XGh-uY-rwz"/>
+                                                <constraint firstItem="C9p-dd-6eg" firstAttribute="centerY" secondItem="FkO-kr-iHY" secondAttribute="centerY" id="bEL-Ph-0Dv"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Rtb-ZR-Cmm" secondAttribute="bottom" id="uKT-Ck-oDP"/>
+                                                <constraint firstItem="Rtb-ZR-Cmm" firstAttribute="trailing" secondItem="FkO-kr-iHY" secondAttribute="trailingMargin" id="z8X-vj-4YM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="SwitchLabel" destination="fKg-M9-jQF" id="L9Q-E3-TKz"/>
-                                            <outlet property="onSwitch" destination="ca4-RK-C47" id="Kiv-MG-dqd"/>
+                                            <outlet property="pickerView" destination="Rtb-ZR-Cmm" id="bBD-db-rHW"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

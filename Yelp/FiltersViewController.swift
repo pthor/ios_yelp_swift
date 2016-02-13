@@ -8,15 +8,28 @@
 
 import UIKit
 
+
+
 @objc protocol FiltersViewControllerDelegate {
     optional func filtersViewController(filtersViewController:FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
 
 class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SwitchCellDelegate  {
+    
+    enum FilterSection: Int{
+        case Deals = 0
+        case Distance = 1
+        case SortBy = 2
+        case Category = 3
+    }
 
     @IBOutlet weak var tableView: UITableView!
     
-    var switchSates = [Int:Bool]()
+    var categorySwitchSates = [Int:Bool]()
+    var sortSwitchSates = [Int:Bool]()
+    var distanceSwitchSates = [Int:Bool]()
+
+    var offeringDealsSelected = false
     weak var delegate: FiltersViewControllerDelegate?
     
     @IBAction func onCancelButton(sender: UIBarButtonItem) {
@@ -28,14 +41,30 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var filters = [String : AnyObject]()
         
         var selectedCategories = [String]()
-        for (row,isSelected) in switchSates {
+        for (row,isSelected) in categorySwitchSates {
             if isSelected {
                 selectedCategories.append(categories[row]["code"]!)
             }
         }
+        
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories
         }
+        
+        var selectedDistance: String?
+        for (row,isSelected) in distanceSwitchSates {
+            if isSelected {
+                selectedDistance = categories[row]["code"]!
+            }
+        }
+        
+        //TODO not way to distance filter??
+        filters["distance"] =  selectedDistance ?? selectedDistance
+        
+        print("offeringDealsSelected \(offeringDealsSelected)")
+        filters["deals"]  = offeringDealsSelected
+        
+        
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
     
@@ -44,21 +73,89 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = 60
         // Do any additional setup after loading the view.
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchTableViewCell
-        cell.delegate = self
-        cell.SwitchLabel.text = categories[indexPath.row]["name"]
-        cell.onSwitch.on = switchSates[indexPath.row] ?? false
         
+ 
+        print("Cell is for deals or Categories")
+        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchTableViewCell
+            
+        if indexPath.section == FilterSection.Deals.rawValue{
+                print("Cell is for deals")
+                cell.SwitchLabel.text = "Offering Deals"
+                cell.onSwitch.on = offeringDealsSelected
+        }
+        else if indexPath.section == FilterSection.Distance.rawValue {
+            cell.SwitchLabel.text = distances[indexPath.row]["name"]
+            cell.onSwitch.on = distanceSwitchSates[indexPath.row] ?? false
+        }
+        else if indexPath.section == FilterSection.SortBy.rawValue {
+            cell.SwitchLabel.text = sortings[indexPath.row]["name"]
+            cell.onSwitch.on = sortSwitchSates[indexPath.row] ?? false
+        }
+        else{
+            print("Cell is for Category")
+            if indexPath.row > 5{
+                //show footer cell or add a button cell idk
+                //cell.hidden = true
+            }
+            cell.SwitchLabel.text = categories[indexPath.row]["name"]
+            cell.onSwitch.on = categorySwitchSates[indexPath.row] ?? false
+        }
+        cell.delegate = self
         return cell
+    
+ 
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        var numRows = 1
+        switch section{
+            case FilterSection.Category.rawValue:
+                numRows = categories.count
+        case FilterSection.Distance.rawValue:
+                numRows = distances.count
+        case FilterSection.SortBy.rawValue:
+            numRows = sortings.count
+        case FilterSection.Deals.rawValue:
+               numRows =   1
+        default:
+             numRows = 1
+        }
+        
+        
+        return numRows
     }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 4
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section > FilterSection.Deals.rawValue ?  30 : 0
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var headerTitle:String?
+        switch section{
+        case FilterSection.Distance.rawValue:
+                headerTitle = "Distance"
+        case FilterSection.SortBy.rawValue:
+            headerTitle = "Sort By"
+        case FilterSection.Category.rawValue:
+            headerTitle = "Categories"
+        case FilterSection.Deals.rawValue:
+            headerTitle = nil
+        default:
+            headerTitle = nil
+        }
+        
+        return headerTitle
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -66,11 +163,37 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func switchCell(switchCell: SwitchTableViewCell, didChangeValue value: Bool) {
-        
+        //TODO refactor to switch
         let indexPath = tableView.indexPathForCell(switchCell)!
-        switchSates[indexPath.row] = switchCell.onSwitch.on
+        if indexPath.section == FilterSection.Category.rawValue{
+            categorySwitchSates[indexPath.row] = switchCell.onSwitch.on
+        }
+        else if indexPath.section == FilterSection.Distance.rawValue {
+            distanceSwitchSates[indexPath.row] = switchCell.onSwitch.on
+        }
+        else if indexPath.section == FilterSection.SortBy.rawValue {
+            sortSwitchSates[indexPath.row] = switchCell.onSwitch.on
+        }
+        else if indexPath.section == FilterSection.Deals.rawValue{
+            print("set offeringDealsSelected")
+            offeringDealsSelected = true
+        }
+        //TODO handle saving state for pickers
+//        else{
+//            switchSates[indexPath.row] = switchCell.onSwitch.on
+//        }
         
     }
+    
+    let sortings = [["name" : "Best Match", "code": "0"],
+                    ["name" : "Distance", "code": "1"],
+                    ["name" : "HighestRated, New", "code": "2"]]
+        
+    let distances = [["name" : "Auto", "code": "0"],
+                    ["name" : "0.3 miles", "code": "0.3"],
+                    ["name" : "1 mile", "code": "1"],
+                    ["name" : "5 miles", "code": "5"],
+                    ["name" : "10 miles", "code": "10"]]
     
     let categories = [["name" : "Afghan", "code": "afghani"],
         ["name" : "African", "code": "african"],

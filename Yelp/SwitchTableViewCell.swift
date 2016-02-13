@@ -16,6 +16,7 @@ class SwitchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var SwitchLabel: UILabel!
     @IBOutlet weak var onSwitch: UISwitch!
+    @IBOutlet weak var roundedContainer: UIView!
     
     weak var delegate: SwitchCellDelegate?
     
@@ -25,6 +26,11 @@ class SwitchTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         onSwitch.addTarget(self, action: "switchValueChange", forControlEvents: UIControlEvents.ValueChanged)
+        
+        roundedContainer.layer.borderColor = UIColor.grayColor().CGColor
+        roundedContainer.layer.borderWidth = 1.0
+        roundedContainer.layer.cornerRadius = 3
+        roundedContainer.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

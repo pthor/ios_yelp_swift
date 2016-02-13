@@ -104,10 +104,18 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
+        //TODO fix default search term if searchbar text is empty as this searches for nada
         let searchText = searchBar.text ?? "Restaraunts"
-        var categories = filters["categories"] as? [String]
+        let categories = filters["categories"] as? [String]
+        //TODO can distance filter be implemented
         
-        Business.searchWithTerm(searchText, sort: .Distance, categories: categories, deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
+        let searchDeals = filters["deals"] as! Bool
+        //var searchDeals = (filters["deals"] != nil && filters["deals"] == true) ? true : false
+        print("filters[deals] \(filters["deals"]) ")
+        print("searchDeals \(searchDeals)")
+        
+        //TODO add distance logic
+        Business.searchWithTerm(searchText, sort: .Distance, categories: categories, deals: searchDeals) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }
