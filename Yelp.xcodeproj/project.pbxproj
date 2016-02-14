@@ -78,6 +78,7 @@
 		222D8A4C19CCF9F900D2DB53 = {
 			isa = PBXGroup;
 			children = (
+				DAEE26281C6D7DAB0098F4F2 /* README.md */,
 				222D8A5719CCF9F900D2DB53 /* Yelp */,
 				222D8A6D19CCF9F900D2DB53 /* YelpTests */,
 				222D8A5619CCF9F900D2DB53 /* Products */,
@@ -182,7 +183,6 @@
 		F4A9A6AAA6A538FE245C4A17 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DAEE26281C6D7DAB0098F4F2 /* README.md */,
 				BBD540129B10DFE60E8C24E2 /* Pods.debug.xcconfig */,
 				97D8B2E3FFD1AF4F4A707E47 /* Pods.release.xcconfig */,
 			);

@@ -26,8 +26,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     var categorySwitchSates = [Int:Bool]()
-    var sortSwitchSates = [Int:Bool]()
-    var distanceSwitchSates = [Int:Bool]()
+    var sortSwitchSates = [0:false,1:false,2:false]
+    var distanceSwitchSates = [0:false,1:false,2:false,3:false,4:false]
 
     var offeringDealsSelected = false
     weak var delegate: FiltersViewControllerDelegate?
@@ -51,15 +51,18 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             filters["categories"] = selectedCategories
         }
         
-        var selectedDistance: String?
         for (row,isSelected) in distanceSwitchSates {
             if isSelected {
-                selectedDistance = categories[row]["code"]!
+                filters["distance"] = distances[row]["code"]!
+            }
+        }
+
+        for (row,isSelected) in sortSwitchSates {
+            if isSelected {
+                filters["sort_by"] = sortings[row]["code"]!
             }
         }
         
-        //TODO not way to distance filter??
-        filters["distance"] =  selectedDistance ?? selectedDistance
         
         print("offeringDealsSelected \(offeringDealsSelected)")
         filters["deals"]  = offeringDealsSelected
@@ -169,27 +172,37 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             categorySwitchSates[indexPath.row] = switchCell.onSwitch.on
         }
         else if indexPath.section == FilterSection.Distance.rawValue {
+            turnOffOtherSwitchesInSection(indexPath, switchs_states: distanceSwitchSates, except_row: indexPath.row)
             distanceSwitchSates[indexPath.row] = switchCell.onSwitch.on
         }
         else if indexPath.section == FilterSection.SortBy.rawValue {
+            print("FilterSection.SortBy changed at row \(indexPath.row)")
+            turnOffOtherSwitchesInSection(indexPath, switchs_states: sortSwitchSates, except_row: indexPath.row)
             sortSwitchSates[indexPath.row] = switchCell.onSwitch.on
         }
         else if indexPath.section == FilterSection.Deals.rawValue{
-            print("set offeringDealsSelected")
             offeringDealsSelected = true
         }
-        //TODO handle saving state for pickers
-//        else{
-//            switchSates[indexPath.row] = switchCell.onSwitch.on
-//        }
         
+    }
+    
+    //turn of the other swithes.  There is a better option that using switches like this for single choice, I'm sure
+    func turnOffOtherSwitchesInSection(indexPath:NSIndexPath, switchs_states:[Int:Bool], except_row: Int){
+        for (row,isSelected) in switchs_states {
+            if(isSelected && row != except_row){
+                let sortCellNSINdexPath = NSIndexPath(forRow:row, inSection: indexPath.section)
+                let otherSwitchCell = tableView.cellForRowAtIndexPath(sortCellNSINdexPath) as! SwitchTableViewCell
+                otherSwitchCell.onSwitch.on = false
+            }
+        }
+    
     }
     
     let sortings = [["name" : "Best Match", "code": "0"],
                     ["name" : "Distance", "code": "1"],
-                    ["name" : "HighestRated, New", "code": "2"]]
+                    ["name" : "HighestRated", "code": "2"]]
         
-    let distances = [["name" : "Auto", "code": "0"],
+    let distances = [["name" : "Auto", "code": ""],
                     ["name" : "0.3 miles", "code": "0.3"],
                     ["name" : "1 mile", "code": "1"],
                     ["name" : "5 miles", "code": "5"],
